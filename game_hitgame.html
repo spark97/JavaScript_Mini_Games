@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+</head>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<style>
+.btn
+{
+	height:50px;
+	width:50px;
+	}
+	.scored
+{
+	background-color:yellow;
+	}
+.act
+{
+	height:50px;
+	width:50px;
+	background-size:contain;
+	background-image:url(x.jpg)
+}
+</style>
+<body>
+<center>
+<div id="timer" class="timer">Timer</div>
+<div id="score" class="scored">Your Score:</div>
+<div id="acc" class="acc">Accuracy</div>
+<div id="tictactoe" style="height:500px;width:500px">
+<button  class="btn" id="1"></button>
+<button  class="btn" id="2"></button>
+<button  class="btn" id="3"></button><br>
+<button  class="btn" id="4"></button>
+<button  class="btn" id="5"></button>
+<button  class="btn" id="6"></button><br>
+<button  class="btn" id="7"></button>
+<button  class="btn" id="8"></button>
+<button  class="btn" id="9"></button><br>
+<button  class="btn" id="10"></button>
+<button  class="btn" id="12"></button>
+<button  class="btn" id="13"></button><br>
+<button  class="btn" id="14"></button>
+<button  class="btn" id="15"></button>
+<button  class="btn" id="16"></button><br>
+<button  class="btn" id="17"></button>
+<button  class="btn" id="18"></button>
+<button  class="btn" id="19"></button><br>
+<button  class="btn" id="11"></button>
+<button  class="btn" id="20"></button>
+<button  class="btn" id="21"></button>
+
+</div>
+</center>
+</body>
+<script>
+var score=0;
+var count=30;
+var i,t=1,clicks=0,right=0;
+function init()
+{
+	setimage();
+	timer();
+}
+init();
+$(document).on("click",'.btn',function()
+	{
+		document.getElementById("acc").innerHTML="Your Accuracy:"+right/clicks;
+		clicks++;
+		if($(this).hasClass('act'))
+		{
+			score++;
+			right++;
+			document.getElementById("score").innerHTML="Your Score:"+score;
+			}
+	});
+//$('#1').addClass('act');
+//setTimeout(function(){setimage()},1000);
+function setimage(){
+	$('#'+t).removeClass('act');
+	i = Math.floor(Math.random()*20);
+	$('#'+i).addClass('act');
+	t=i;
+	if(count==0)
+	{
+	return;
+	}
+	else
+	setTimeout(function(){setimage()},600);
+	}
+	
+	function timer(){
+		document.getElementById("timer").innerHTML="Timer:"+count;
+		count--;
+		if(count==0)
+		{
+			alert('Your Score:'+score+'New Game will start.');
+			document.getElementById("score").innerHTML="Your Score:";
+			document.getElementById("timer").innerHTML="Timer:";
+			score=0;
+			count=30;
+			timer();
+			return;
+			}
+		else
+		setTimeout(function(){timer()},1000);
+		}
+</script>
+</html>

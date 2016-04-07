@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+</head>
+<script type="text/javascript" src="js/jquery.min.js">
+</script>
+<style>
+.mycell{
+	background:blue;
+	width:25px;
+	height:25px;
+	float:left;
+	}
+.sel{
+	background:#FFDE00;
+	}
+	.selH{
+	background:red;
+	}
+.selA{
+	  background-image:url(apple.png);
+	  background-repeat:no-repeat;
+		}
+
+
+</style>
+<body>
+<center>
+<div id="usr" style="width:auto;height:15px ; padding:0px ; margin:0px;">
+</div>
+<div id="div_main" style="width:625px;height:625px ; padding:0px ; margin:0px; border:5px solid #003366">
+</div>
+</center>
+<script>
+var speed=200;
+var score=0;
+var dir=1;
+var snake= ["3_10","2_10","1_10"];
+var food="";
+function changespeed()
+{
+	speed=speed-50;
+	}
+	setTimeout(function(){changespeed()},5000);
+function ini(){
+	var name=prompt('Enter your name');
+	$("#usr").html("<b>Welcome "+name+"</b>");
+	dir=1;
+	snake=["3_10","2_10","1_10"];
+	food="";
+	$('#div_main').html("");
+	var r;
+	var c;
+for(r=0;r<25;r++)
+{
+	for(c=0;c<25;c++)
+	{
+		$('#div_main').append('<div class=mycell id=c_'+r+'_'+c+'></div>');
+		}
+}
+var k=0;
+while(k<30)
+{
+	var r4=Math.floor(Math.random()*24);
+	var c4=Math.floor(Math.random()*24);
+	if((r4==3 && c4==10)||(r4==2 && c4==10)||(r4==1 && c4==10))
+	continue;
+	if($('#c_'+(r4-1)+'_'+(c4-1)).hasClass('selH')||$('#c_'+(r4+1)+'_'+(c4+1)).hasClass('selH')||$('#c_'+(r4-1)+'_'+(c4+1)).hasClass('selH')||$('#c_'+(r4+1)+'_'+(c4-1)).hasClass('selH'))
+	continue;
+	$('#c_'+r4+'_'+c4).addClass('selH');
+	k=k+1;
+}
+$('#c_1_10').addClass('sel');
+$('#c_2_10').addClass('sel');
+$('#c_3_10').addClass('sel');
+generatefood();
+setTimeout(function(){
+	gameupdate()},speed);
+	score=0;
+	}
+	ini();
+function generatefood(){
+	var r1=Math.floor(Math.random()*24);
+	var c1=Math.floor(Math.random()*24);
+	if($('#c_'+r1+'_'+c1).hasClass('selH'))
+	generatefood();
+	else{
+	$('#c_'+r1+'_'+c1).addClass('selA');
+	food=r1+'_'+c1;
+	}
+}
+	function gameupdate()
+	{
+		var tail=snake.pop();
+		$('#c_'+tail).removeClass('sel');
+		var hh=snake[0];
+		var rc=hh.split("_");
+		var r=parseInt(rc[0]);
+		var c=parseInt(rc[1]);
+		switch(dir)
+		{
+			case 1: r=r+1;break;
+			case 2: c=c-1;break;
+			case 3: r=r-1;break;
+			case 4: c=c+1;break;
+			}
+			var nn=r+'_'+c;
+			if(nn===food)
+			{
+				snake.push(tail);
+				$('#c_'+tail).addClass('sel');
+				$('#c_'+food).removeClass('selA');
+				score=score+1;
+				$('#score').append(score);
+				generatefood();
+				}
+				snake.unshift(nn);
+				//$('#c_'+nn).hasClass('sel');
+				if(c<0 || r<0 || c>24 || r>24 || $('#c_'+nn).hasClass('sel')|| $('#c_'+nn).hasClass('selH'))
+				{
+					alert('Your score '+snake.length);
+					var ans=prompt('Do you want to continue? yes/no ');
+					if(ans=="no")
+					{
+						window.close();
+					return;
+					}
+					ini();
+					return ;
+					}
+					$('#c_'+nn).addClass('sel');
+					setTimeout(function(){gameupdate()},speed);
+
+		}
+
+$(document).keydown(function(e)
+{
+	if(e.keyCode==37)
+	dir=2;
+	else if(e.keyCode==38)
+	dir=3;
+	else if(e.keyCode==39)
+	dir=4;
+	else if(e.keyCode==40)
+	dir=1;
+
+	});
+
+</script>
+</body>
+</html>

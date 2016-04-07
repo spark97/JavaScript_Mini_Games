@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>TicTacToe</title>
+</head>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<style>
+.btn
+{
+	height:50px;
+	width:50px;
+	}
+	.x
+		{
+			height:50px;
+	width:50px;
+	background-size:contain;
+	background-image:url(x.jpg)
+		}
+		.o
+	{
+		height:50px;
+	width:50px;
+	background-size:contain;
+	background-image:url(o.jpg)
+		}
+		
+</style>
+<body>
+<center>
+<div id="tictactoe" style="height:400px;width:400px">
+<button  class="btn" id="one"></button>
+<button  class="btn" id="two"></button>
+<button  class="btn" id="three"></button><br>
+<button  class="btn" id="four"></button>
+<button  class="btn" id="five"></button>
+<button  class="btn" id="six"></button><br>
+<button  class="btn" id="seven"></button>
+<button  class="btn" id="eight"></button>
+<button  class="btn" id="nine"></button>
+</div>
+</center>
+</body>
+<script>
+var count=1;
+$(document).on("click",'.btn',function(){
+	if($(this).hasClass('x') || $(this).hasClass('o')  )
+	{
+		alert('already selected');
+	}
+	
+	else
+	{
+		if(count%2==0)
+		{
+		$(this).addClass('o');
+		count++;
+		console.log(count);
+		if ($("#one").hasClass('o') && $("#two").hasClass('o') && $("#three").hasClass('o') || $("#four").hasClass('o') && $("#five").hasClass('o') && $("#six").          hasClass('o') || $("#seven").hasClass('o') && $("#eight").hasClass('o') && $("#nine").hasClass('o') || $("#one").hasClass('o') && $("#four").hasClass('o'           ) && $("#seven").hasClass('o') || $("#two").hasClass('o') && $("#five").hasClass('o') && $("#eight").hasClass('o') || $("#three").hasClass('o') && $(              "#six").hasClass('o') && $("#nine").hasClass('o') || $("#one").hasClass('o') && $("#five").hasClass('o') && $("#nine").hasClass('o') || $("#three").       hasClass('o') && $("#five").hasClass('o') && $("#seven").hasClass('o'))
+     {
+	 alert('O has won the game. Start a new game');
+	 $('.btn').removeClass('o');
+	 $('.btn').removeClass('x');
+	  count=1;
+	 }
+	 
+		}
+		else if(count%2==1 && count!=9)
+		{
+		$(this).addClass('x');
+		count++;
+		console.log(count);
+		if ($("#one").hasClass('x') && $("#two").hasClass('x') && $("#three").hasClass('x') || $("#four").hasClass('x') && $("#five").hasClass('x') && $("#six").        hasClass('x') || $("#seven").hasClass('x') && $("#eight").hasClass('x') && $("#nine").hasClass('x') || $("#one").hasClass('x') && $("#four").hasClass('x')        && $("#seven").hasClass('x') || $("#two").hasClass('x') && $("#five").hasClass('x') && $("#eight").hasClass('x') || $("#three").hasClass('x') && $("#six")        .hasClass('x') && $("#nine").hasClass('x') || $("#one").hasClass('x') && $("#five").hasClass('x') && $("#nine").hasClass('x') || $("#three").hasClass('x')        && $("#five").hasClass('x') && $("#seven").hasClass('x'))
+        {
+        alert('X has won the game. Start a new game');
+		 $('.btn').removeClass('o');
+	 $('.btn').removeClass('x');
+	  count=1;
+         }
+		}
+		else if(count+1==10)
+		{
+			$(this).addClass('x');
+		count++;
+			if ($("#one").hasClass('x') && $("#two").hasClass('x') && $("#three").hasClass('x') || $("#four").hasClass('x') && $("#five").hasClass('x') && $("#six").hasClass('x') || $("#seven").hasClass('x') && $("#eight").hasClass('x') && $("#nine").hasClass('x') || $("#one").hasClass('x') && $("#four").hasClass('x')        && $("#seven").hasClass('x') || $("#two").hasClass('x') && $("#five").hasClass('x') && $("#eight").hasClass('x') || $("#three").hasClass('x') && $("#six")        .hasClass('x') && $("#nine").hasClass('x') || $("#one").hasClass('x') && $("#five").hasClass('x') && $("#nine").hasClass('x') || $("#three").hasClass('x')        && $("#five").hasClass('x') && $("#seven").hasClass('x'))
+        {
+        alert('X has won the game. Start a new game');
+		 $('.btn').removeClass('o');
+	 $('.btn').removeClass('x');
+	  count=1;
+         }else{
+			alert('Its A Tie.Start a new game');
+		 $('.btn').removeClass('o');
+	 $('.btn').removeClass('x');
+	 count=1;}
+			}
+	}
+	});
+</script>
+</html>
